@@ -7,33 +7,34 @@ import Card from '../components/ui/Card';
 
 const HomePage: React.FC = () => {
   return (
-    <div>
+    <div className="relative">
       {/* Section Héro */}
-      <section className="min-h-screen pt-24 pb-12 flex items-center relative overflow-hidden">
+      <section className="min-h-screen pt-32 pb-12 md:pt-24 flex items-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10 z-0" />
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="order-2 md:order-1 mt-8 md:mt-0"
             >
-              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
+              <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
                 Votre Générateur d'Entraînement à Domicile
               </h1>
-              <p className="text-lg text-neutral-700 mb-8">
+              <p className="text-base md:text-lg text-neutral-700 mb-6 md:mb-8">
                 Créez des programmes d'entraînement personnalisés adaptés à vos objectifs, votre équipement et votre niveau.
                 Restez en forme chez vous avec des plans d'exercices sur mesure et des conseils nutritionnels.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link to="/generate">
-                  <Button size="lg" rightIcon={<Dumbbell size={20} />}>
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <Link to="/generate" className="w-full sm:w-auto">
+                  <Button size="lg" rightIcon={<Dumbbell size={20} className="ml-2" />} className="w-full sm:w-auto">
                     Créer mon Programme
                   </Button>
                 </Link>
-                <Link to="/diet">
-                  <Button size="lg" variant="outline" rightIcon={<Salad size={20} />}>
+                <Link to="/diet" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" rightIcon={<Salad size={20} className="ml-2" />} className="w-full sm:w-auto">
                     Conseils Nutrition
                   </Button>
                 </Link>
@@ -44,9 +45,9 @@ const HomePage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
+              className="relative order-1 md:order-2"
             >
-              <div className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl">
                 <img 
                   src="pop1.jpg" 
                   alt="Personne s'entraînant à la maison" 
@@ -55,7 +56,7 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
               
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-4 max-w-xs">
+              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-4 max-w-[280px] hidden sm:block">
                 <div className="flex items-center">
                   <div className="bg-primary-100 p-3 rounded-full mr-4">
                     <Zap className="text-primary-500 h-6 w-6" />
@@ -72,18 +73,18 @@ const HomePage: React.FC = () => {
       </section>
       
       {/* Section Caractéristiques */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-16 md:py-20 bg-neutral-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4">
               Pourquoi Choisir FitGen ?
             </h2>
-            <p className="text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-neutral-600 max-w-2xl mx-auto text-sm md:text-base">
               Notre approche personnalisée du fitness vous aide à atteindre vos objectifs avec des programmes d'entraînement adaptés et des conseils nutritionnels.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 icon: <Dumbbell className="h-8 w-8 text-primary-500" />,
@@ -101,12 +102,12 @@ const HomePage: React.FC = () => {
                 description: 'Complétez vos entraînements avec des conseils alimentaires sains et des suggestions de repas qui soutiennent votre parcours fitness.'
               }
             ].map((feature, index) => (
-              <Card key={index} className="p-6">
-                <div className="bg-primary-100 rounded-full p-3 inline-block mb-4">
+              <Card key={index} className="p-5 md:p-6">
+                <div className="bg-primary-100 rounded-full p-3 inline-block mb-3 md:mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="font-heading font-semibold text-xl mb-3">{feature.title}</h3>
-                <p className="text-neutral-600">{feature.description}</p>
+                <h3 className="font-heading font-semibold text-lg md:text-xl mb-2 md:mb-3">{feature.title}</h3>
+                <p className="text-neutral-600 text-sm md:text-base">{feature.description}</p>
               </Card>
             ))}
           </div>
@@ -114,18 +115,18 @@ const HomePage: React.FC = () => {
       </section>
       
       {/* Comment ça marche */}
-      <section className="py-20">
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4">
               Comment ça Marche
             </h2>
-            <p className="text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-neutral-600 max-w-2xl mx-auto text-sm md:text-base">
               Créez votre programme personnalisé en quelques étapes simples
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
             {[
               {
                 number: '01',
@@ -149,12 +150,12 @@ const HomePage: React.FC = () => {
               }
             ].map((step, index) => (
               <div key={index} className="relative">
-                <div className="bg-white rounded-xl shadow-md p-6 h-full relative z-10">
-                  <div className="bg-gradient-to-r from-primary-500 to-accent-500 text-white font-bold text-2xl rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                <div className="bg-white rounded-xl shadow-md p-5 md:p-6 h-full relative z-10">
+                  <div className="bg-gradient-to-r from-primary-500 to-accent-500 text-white font-bold text-xl md:text-2xl rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center mb-3 md:mb-4">
                     {step.number}
                   </div>
-                  <h3 className="font-heading font-semibold text-xl mb-3">{step.title}</h3>
-                  <p className="text-neutral-600">{step.description}</p>
+                  <h3 className="font-heading font-semibold text-lg md:text-xl mb-2 md:mb-3">{step.title}</h3>
+                  <p className="text-neutral-600 text-sm md:text-base">{step.description}</p>
                 </div>
                 
                 {index < 3 && (
@@ -171,19 +172,19 @@ const HomePage: React.FC = () => {
       </section>
       
       {/* Section CTA */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-accent-500 text-white">
+      <section className="py-16 md:py-20 bg-gradient-to-r from-primary-500 to-accent-500 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+          <h2 className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-6">
             Prêt à Commencer votre Parcours Fitness ?
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+          <p className="text-white/80 max-w-2xl mx-auto mb-6 md:mb-8 text-sm md:text-base lg:text-lg">
             Générez votre programme d'entraînement personnalisé maintenant et commencez à travailler vers vos objectifs fitness dès aujourd'hui.
           </p>
           <Link to="/generate">
             <Button 
               size="lg" 
-              className="bg-white text-primary-600 hover:bg-white/90 focus:ring-white"
-              rightIcon={<Dumbbell size={20} />}
+              className="bg-white text-primary-600 hover:bg-white/90 focus:ring-white w-full sm:w-auto"
+              rightIcon={<Dumbbell size={20} className="ml-2" />}
             >
               Créer Mon Programme d'Entraînement
             </Button>

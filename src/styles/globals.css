@@ -1,0 +1,10 @@
+/* Dans votre fichier globals.css */
+body {
+    padding-top: 80px; /* Ajustez selon la hauteur de votre header */
+  }
+  
+  @media (min-width: 768px) {
+    body {
+      padding-top: 0;
+    }
+  }

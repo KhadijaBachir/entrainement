@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Dumbbell } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+        isScrolled ? 'bg-white shadow-md' : 'bg-white md:bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4 py-4">
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
           </Link>
           
           {/* Navigation desktop */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             {[
               { path: '', label: 'Accueil' },
               { path: 'workouts', label: 'Exercices' },
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
           
           {/* Bouton menu mobile */}
           <button
-            className="md:hidden text-neutral-700"
+            className="md:hidden text-neutral-700 p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -75,42 +75,44 @@ const Header: React.FC = () => {
         </div>
         
         {/* Navigation mobile */}
-        {isMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden pt-4 pb-2"
-          >
-            <div className="flex flex-col space-y-4">
-              {[
-                { path: '', label: 'Accueil' },
-                { path: 'workouts', label: 'Exercices' },
-                { path: 'diet', label: 'Nutrition' },
-                { path: 'about', label: 'À propos' }
-              ].map((item) => (
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <nav className="bg-white/95 backdrop-blur-sm pt-2 pb-6 space-y-4 border-t border-gray-100 mt-2">
+                {[
+                  { path: '', label: 'Accueil' },
+                  { path: 'workouts', label: 'Exercices' },
+                  { path: 'diet', label: 'Nutrition' },
+                  { path: 'about', label: 'À propos' }
+                ].map((item) => (
+                  <Link
+                    key={item.path}
+                    to={`/${item.path}`}
+                    className={`block font-medium text-lg transition-colors hover:text-primary-500 px-2 py-3 ${
+                      location.pathname === `/${item.path}` 
+                        ? 'text-primary-500' 
+                        : 'text-neutral-700'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
                 <Link
-                  key={item.path}
-                  to={`/${item.path}`}
-                  className={`font-medium text-lg transition-colors hover:text-primary-500 ${
-                    location.pathname === `/${item.path}` 
-                      ? 'text-primary-500' 
-                      : 'text-neutral-700'
-                  }`}
+                  to="/generate"
+                  className="block bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium py-3 px-6 rounded-full hover:opacity-90 transition-opacity text-center mt-4"
                 >
-                  {item.label}
+                  Créer un Programme
                 </Link>
-              ))}
-              <Link
-                to="/generate"
-                className="bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium py-2 px-6 rounded-full hover:opacity-90 transition-opacity text-center"
-              >
-                Créer un Programme
-              </Link>
-            </div>
-          </motion.nav>
-        )}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
